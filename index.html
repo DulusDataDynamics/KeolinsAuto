@@ -33,6 +33,36 @@
             background-color: #f8fafc;
         }
         
+        .logo-container {
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 3px solid #1e3a8a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .logo-img {
+            max-width: 101%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            transform: scale(1.1) translateY(-5px);
+        }
+        
+        .nav-logo {
+            max-width: 60px;
+            height: 60px;
+        }
+        
+        .hero-logo {
+            max-width: 220px;
+            height: 140px;
+        }
+        
         .nav-link {
             position: relative;
         }
@@ -64,7 +94,7 @@
     <nav class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center">
-                
+                <h1 class="text-xl font-bold text-primary">KEOLIN'S AUTO</h1>
             </div>
             <div class="hidden md:flex space-x-8">
                 <a href="#home" class="nav-link text-gray-800 font-medium">Home</a>
@@ -90,11 +120,19 @@
     <!-- Hero Section -->
     <section id="home" class="bg-gradient-to-r from-primary to-logoDark text-white py-20">
         <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center mb-6">
+                <div class="logo-container hero-logo">
+                    <img src="keo.jpg" alt="Keolin's Logo" class="logo-img">
+                </div>
+            </div>
             <h1 class="text-4xl md:text-5xl font-bold mb-6">KEOLIN'S AUTO & BREAKDOWN SERVICE</h1>
             <p class="text-xl md:text-2xl mb-8">Professional Polishing & Reliable Breakdown Assistance</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="tel:0649343376" class="bg-secondary hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 flex items-center justify-center gap-2">
+                <a href="tel:0549349316" class="bg-secondary hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 flex items-center justify-center gap-2">
                     <i class="fas fa-phone"></i> CALL NOW
+                </a>
+                <a href="page.html" class="bg-secondary hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 flex items-center justify-center gap-2">
+                    <i class="fas fa-shopping-cart"></i> KEOLIN'S CHEMICALS & RACE FUELS
                 </a>
                 <a href="#contact" class="bg-white hover:bg-gray-100 text-primary font-bold py-3 px-6 rounded-full transition duration-300 flex items-center justify-center gap-2">
                     <i class="fas fa-envelope"></i> CONTACT US
@@ -165,6 +203,37 @@
                     </ul>
                 </div>
             </div>
+            
+            <!-- Additional Services -->
+            <div class="mt-12 bg-primary/5 rounded-xl p-8 border border-primary/10">
+                <h3 class="text-2xl font-bold text-center mb-6 text-gray-800">ADDITIONAL SERVICES</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="p-4">
+                        <div class="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <i class="fas fa-car text-primary"></i>
+                        </div>
+                        <p class="font-medium">Panel Shop</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <i class="fas fa-tools text-primary"></i>
+                        </div>
+                        <p class="font-medium">Auto Shop</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <i class="fas fa-truck text-primary"></i>
+                        </div>
+                        <p class="font-medium">Towing</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <i class="fas fa-truck-moving text-primary"></i>
+                        </div>
+                        <p class="font-medium">Logistics</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -227,76 +296,75 @@
         </div>
     </section>
 
-<!-- Contact Section -->
-<section id="contact" class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">CONTACT US</h2>
-        
-        <div class="max-w-md mx-auto bg-gray-50 rounded-xl p-8 shadow-sm border border-gray-200">
-            <h3 class="text-xl font-semibold text-center text-gray-800 mb-8">GET IN TOUCH</h3>
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">CONTACT US</h2>
             
-            <div class="space-y-6">
-                <!-- Phone -->
-                <div class="flex items-start">
-                    <div class="bg-primary/10 p-3 rounded-full mr-4 flex-shrink-0">
-                        <i class="fas fa-phone text-primary"></i>
-                    </div>
-                    <div>
-                        <p class="text-gray-600">Phone / WhatsApp</p>
-                        <a href="tel:0649343376" class="text-lg font-semibold text-gray-800 hover:text-primary transition">064 934 3376</a>
-                    </div>
-                </div>
+            <div class="max-w-md mx-auto bg-gray-50 rounded-xl p-8 shadow-sm border border-gray-200">
+                <h3 class="text-xl font-semibold text-center text-gray-800 mb-8">GET IN TOUCH</h3>
                 
-                <!-- WhatsApp Direct -->
-                <div class="flex items-start">
-                    <div class="bg-green-100 p-3 rounded-full mr-4 flex-shrink-0">
-                        <i class="fab fa-whatsapp text-green-600"></i>
+                <div class="space-y-6">
+                    <!-- Phone -->
+                    <div class="flex items-start">
+                        <div class="bg-primary/10 p-3 rounded-full mr-4 flex-shrink-0">
+                            <i class="fas fa-phone text-primary"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">Phone / WhatsApp</p>
+                            <a href="tel:0549349316" class="text-lg font-semibold text-gray-800 hover:text-primary transition">054 934 9316</a>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-gray-600">Chat on WhatsApp</p>
-                        <a href="https://wa.me/27649343376" class="text-lg font-semibold text-gray-800 hover:text-green-600 transition">Click to WhatsApp</a>
+                    
+                    <!-- WhatsApp Direct -->
+                    <div class="flex items-start">
+                        <div class="bg-green-100 p-3 rounded-full mr-4 flex-shrink-0">
+                            <i class="fab fa-whatsapp text-green-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">Chat on WhatsApp</p>
+                            <a href="https://wa.me/27549349316" class="text-lg font-semibold text-gray-800 hover:text-green-600 transition">Click to WhatsApp</a>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Email -->
-                <div class="flex items-start">
-                    <div class="bg-secondary/10 p-3 rounded-full mr-4 flex-shrink-0">
-                        <i class="fas fa-envelope text-secondary"></i>
+                    
+                    <!-- Email -->
+                    <div class="flex items-start">
+                        <div class="bg-secondary/10 p-3 rounded-full mr-4 flex-shrink-0">
+                            <i class="fas fa-envelope text-secondary"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">Email</p>
+                            <a href="mailto:keolinmoonsamy@gmail.com" class="text-lg font-semibold text-gray-800 hover:text-secondary transition">keolinmoonsamy@gmail.com</a>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-gray-600">Email</p>
-                        <a href="mailto:keolinmoonsamy@gmail.com" class="text-lg font-semibold text-gray-800 hover:text-secondary transition">keolinmoonsamy@gmail.com</a>
-                    </div>
-                </div>
-                
-                <!-- TikTok -->
-                <div class="flex items-start">
-                    <div class="bg-black p-3 rounded-full mr-4 flex-shrink-0">
-                        <i class="fab fa-tiktok text-white"></i>
-                    </div>
-                    <div>
-                        <p class="text-gray-600">See Our Work</p>
-                        <a href="https://www.tiktok.com/@keolinsauto?_t=ZM-8yPq4S5RAs4&_r=1" target="_blank" class="text-lg font-semibold text-gray-800 hover:text-black transition">Check Our TikTok</a>
+                    
+                    <!-- TikTok -->
+                    <div class="flex items-start">
+                        <div class="bg-black p-3 rounded-full mr-4 flex-shrink-0">
+                            <i class="fab fa-tiktok text-white"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">See Our Work</p>
+                            <a href="https://www.tiktok.com/@keolinsauto?_t=ZM-8yPq4S5RAs4&_r=1" target="_blank" class="text-lg font-semibold text-gray-800 hover:text-black transition">Check Our TikTok</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
                 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    
+                <div class="mb-4 md:mb-0 text-center md:text-left"
                     <p class="mt-2 text-gray-400">Professional Auto Polishing & Breakdown Services</p>
                 </div>
                 <div class="flex space-x-6">
-                    <a href="tel:0649343376" class="text-gray-400 hover:text-white transition">
+                    <a href="tel:0549349316" class="text-gray-400 hover:text-white transition">
                         <i class="fas fa-phone"></i>
                     </a>
-                    <a href="https://wa.me/27649343376" class="text-gray-400 hover:text-green-400 transition">
+                    <a href="https://wa.me/27549349316" class="text-gray-400 hover:text-green-400 transition">
                         <i class="fab fa-whatsapp"></i>
                     </a>
                     <a href="mailto:keolinmoonsamy@gmail.com" class="text-gray-400 hover:text-red-400 transition">
@@ -341,26 +409,6 @@
                 }
             });
         });
-        
-        // Simple form handling
-        const contactForm = document.getElementById('contact-form');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Get form values
-                const name = document.getElementById('name').value;
-                const phone = document.getElementById('phone').value;
-                const message = document.getElementById('message').value;
-                
-                // Here you would typically send this data to a server
-                // For now, we'll just log it and show an alert
-                console.log({ name, phone, message });
-                
-                alert('Thank you for your message! We will contact you soon.');
-                contactForm.reset();
-            });
-        }
     </script>
 </body>
 </html>

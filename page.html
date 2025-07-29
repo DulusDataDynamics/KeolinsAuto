@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keolin's Auto Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: rgb(246, 248, 248);
+        }
+        .product-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid #ea580c;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .active-filter {
+            background-color: #1e3066 !important;
+            color: rgb(219, 218, 218) !important;
+            border-color: #1e3a8a !important;
+        }
+        .active-tab {
+            background-color: #1e3a8a;
+            color: white;
+        }
+        .cart-item {
+            transition: all 0.2s ease;
+        }
+        .cart-item:hover {
+            background-color: #f7f8fa;
+        }
+        #cartSidebar {
+            scrollbar-width: thin;
+            scrollbar-color: #ea580c #f1efef;
+        }
+        #cartSidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        #cartSidebar::-webkit-scrollbar-track {
+            background: #d8d7d7;
+        }
+        #cartSidebar::-webkit-scrollbar-thumb {
+            background-color: #ea580c;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-4 shadow-md sticky top-0 z-30">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">KEOLIN'S AUTO SERVICES</h1>
+            <button id="cartToggle" class="relative">
+                <i class="fas fa-shopping-cart text-2xl"></i>
+                <span id="cartCount" class="absolute -top-2 -right-2 bg-secondary text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Product Type Tabs -->
+        <div class="flex border-b border-gray-200 mb-6">
+            <button class="product-tab active-tab px-6 py-3 font-medium" data-tab="chemicals">Chemicals & Race Fuels</button>
+            <button class="product-tab px-6 py-3 font-medium text-gray-600 hover:text-primary" data-tab="services">Auto Services</button>
+        </div>
+
+        <!-- Chemicals & Race Fuels Section -->
+        <section id="chemicalsSection" class="product-section">
+            <!-- Size Tabs -->
+            <div class="flex mb-6 overflow-x-auto">
+                <button class="size-tab active-tab px-4 py-2 mr-2 font-medium" data-size="5L">5L Products</button>
+                <button class="size-tab px-4 py-2 mr-2 font-medium text-gray-600 hover:text-primary" data-size="25L">25L Products</button>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="mb-8 bg-white rounded-xl shadow-sm p-4">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="relative flex-grow">
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" id="searchInput" placeholder="Search products..." 
+                               class="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
+                    </div>
+                    <div class="flex gap-2 overflow-x-auto pb-2">
+                        <button class="filter-btn px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition font-medium" data-filter="all">All</button>
+                        <button class="filter-btn px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition font-medium" data-filter="cleaner">Cleaners</button>
+                        <button class="filter-btn px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition font-medium" data-filter="polish">Polishes</button>
+                        <button class="filter-btn px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition font-medium" data-filter="fuel">Race Fuels</button>
+                        <button class="filter-btn px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition font-medium" data-filter="interior">Interior</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <!-- Products will load here -->
+            </div>
+        </section>
+
+        <!-- Auto Services Section (Hidden by default) -->
+        <section id="servicesSection" class="product-section hidden">
+            <!-- Your auto services content would go here -->
+            <div class="text-center py-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">AUTO SERVICES COMING SOON</h2>
+                <p class="text-gray-600">We're currently setting up our service listings</p>
+            </div>
+        </section>
+
+        <!-- Shopping Cart Sidebar -->
+        <div id="cartSidebar" class="fixed inset-y-0 right-0 w-full md:w-96 bg-blue-600 shadow-lg transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-white">Your Order</h2>
+                    <button id="closeCart" class="text-white hover:text-gray-200">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+                
+                <div id="cartItems" class="mb-4 divide-y divide-blue-500">
+                    <!-- Cart items will appear here -->
+                    <p class="text-blue-200 py-4 text-center" id="emptyCartMessage">Your cart is empty</p>
+                </div>
+                
+                <div class="border-t border-blue-500 pt-4">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium text-white">Total Items:</span>
+                        <span id="totalItems" class="font-medium text-white">0</span>
+                    </div>
+                    <div class="flex justify-between mb-4">
+                        <span class="font-bold text-white">Total Price:</span>
+                        <span id="totalPrice" class="font-bold text-orange-400">R0</span>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <input type="text" id="customerName" placeholder="Your Name" class="w-full px-4 py-2 border border-blue-400 rounded-lg bg-blue-700 text-white placeholder-blue-300">
+                        <input type="tel" id="customerPhone" placeholder="Phone Number" class="w-full px-4 py-2 border border-blue-400 rounded-lg bg-blue-700 text-white placeholder-blue-300">
+                        <textarea id="customerNotes" placeholder="Additional notes" class="w-full px-4 py-2 border border-blue-400 rounded-lg bg-blue-700 text-white placeholder-blue-300" rows="3"></textarea>
+                        
+                        <button id="sendOrder" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2">
+                            <i class="fab fa-whatsapp"></i> Send Order via WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="cartOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h3 class="text-xl font-bold mb-2">Contact Dealer</h3>
+                <p class="mb-1"><i class="fas fa-phone mr-2"></i> 064 934 3376</p>
+                <p class="mb-1"><i class="fas fa-envelope mr-2"></i> keolinmoonsamy@gmail.com</p>
+                <p class="mb-4"><i class="fas fa-map-marker-alt mr-2"></i> 12 Dangelo Place, Reservoir Hills, Durban 4091</p>
+                <p class="text-gray-400 text-sm">© 2023 Keolin's Auto Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product Data
+        const products = {
+            "5L": [
+                { id: "5L-1", name: "Alu-brite", price: 210, category: "cleaner", desc: "Aluminum cleaner" },
+                { id: "5L-2", name: "Black Magic Hye Paint", price: 370, category: "paint", desc: "High yield paint solution" },
+                { id: "5L-3", name: "Car Polish", price: 570, category: "polish", desc: "Premium vehicle polish" },
+                { id: "5L-4", name: "Colour Foam (Blue/Green)", price: 190, category: "cleaner", desc: "Specialty color foam" },
+                { id: "5L-5", name: "Colour Foam (Red/Yellow/Purple/Pink)", price: 190, category: "cleaner", desc: "Vibrant color foam" },
+                { id: "5L-6", name: "Dash-Econo", price: 370, category: "interior", desc: "Economy dashboard treatment" },
+                { id: "5L-7", name: "Dash Premium", price: 450, category: "interior", desc: "Premium interior protectant" },
+                { id: "5L-8", name: "Black Hye Gel", price: 320, category: "polish", desc: "High-gloss black finish" },
+                { id: "5L-9", name: "Dash High Shine", price: 570, category: "interior", desc: "Ultimate shine for interiors" },
+                { id: "5L-10", name: "Degreaser", price: 160, category: "cleaner", desc: "General purpose degreaser" },
+                { id: "5L-11", name: "Heavy Duty Degreaser", price: 200, category: "cleaner", desc: "Industrial strength formula" },
+                { id: "5L-12", name: "Engine Cleaner (Water Based)", price: 320, category: "cleaner", desc: "Eco-friendly engine cleaner" },
+                { id: "5L-13", name: "Engine Cleaner (Solvent Based)", price: 370, category: "cleaner", desc: "Powerful solvent cleaner" },
+                { id: "5L-14", name: "Tyre Silicone Oil", price: 570, category: "tire", desc: "Long-lasting tire shine" },
+                { id: "5L-15", name: "Ethanol E95", price: 270, category: "fuel", desc: "High-performance race fuel" },
+                { id: "5L-16", name: "Methanol", price: 220, category: "fuel", desc: "Race fuel additive" },
+                { id: "5L-17", name: "Octane Booster OB1", price: 420, category: "fuel", desc: "Fuel performance enhancer" },
+                { id: "5L-18", name: "Wash and Wax", price: 210, category: "cleaner", desc: "2-in-1 cleaning solution" },
+                { id: "5L-19", name: "Auto shampoo", price: 85, category: "cleaner", desc: "Vehicle cleaning solution" },
+                { id: "5L-20", name: "Leather cream", price: 550, category: "interior", desc: "Premium leather treatment" },
+                { id: "5L-21", name: "Upolstery cleaner", price: 130, category: "interior", desc: "Fabric and upholstery cleaner" },
+                { id: "5L-22", name: "Fleet wash", price: 190, category: "cleaner", desc: "Commercial vehicle cleaner" }
+            ],
+            "25L": [
+                { id: "25L-1", name: "Au-brite", price: 1000, category: "cleaner", desc: "Aluminum cleaner" },
+                { id: "25L-2", name: "Black magic hye paint", price: 1150, category: "paint", desc: "High yield paint" },
+                { id: "25L-3", name: "Car polish", price: 2500, category: "polish", desc: "Premium vehicle polish" },
+                { id: "25L-4", name: "Colour foam (blue, green)", price: 500, category: "cleaner", desc: "Specialty color foam" },
+                { id: "25L-5", name: "Colour foam (red, yellow, purple, pink)", price: 500, category: "cleaner", desc: "Vibrant color foam" },
+                { id: "25L-6", name: "Dash-Econo", price: 1500, category: "interior", desc: "Economy dashboard treatment" },
+                { id: "25L-7", name: "Dash premium", price: 1700, category: "interior", desc: "Premium interior protectant" },
+                { id: "25L-8", name: "Black hye gel", price: 1500, category: "polish", desc: "High-gloss black finish" },
+                { id: "25L-9", name: "Dash high shine", price: 2500, category: "interior", desc: "Ultimate shine for interiors" },
+                { id: "25L-10", name: "Degreaser", price: 350, category: "cleaner", desc: "General purpose degreaser" },
+                { id: "25L-11", name: "Degreaser (heavy duty)", price: 470, category: "cleaner", desc: "Industrial strength formula" },
+                { id: "25L-12", name: "Engine cleaner (water based)", price: 800, category: "cleaner", desc: "Eco-friendly engine cleaner" },
+                { id: "25L-13", name: "Engine cleaner (solvent based)", price: 1200, category: "cleaner", desc: "Powerful solvent cleaner" },
+                { id: "25L-14", name: "Tyre silicone oil based", price: 2500, category: "tire", desc: "Long-lasting tire shine" },
+                { id: "25L-15", name: "Ethanol E95", price: 850, category: "fuel", desc: "High-performance race fuel" },
+                { id: "25L-16", name: "Methanol", price: 600, category: "fuel", desc: "Race fuel additive" },
+                { id: "25L-17", name: "Octane booster O81", price: 1000, category: "fuel", desc: "Fuel performance enhancer" },
+                { id: "25L-18", name: "Wash and Wax", price: 300, category: "cleaner", desc: "2-in-1 cleaning solution" },
+                { id: "25L-19", name: "Auto shampoo", price: 400, category: "cleaner", desc: "Vehicle cleaning solution" },
+                { id: "25L-20", name: "Leather cream", price: 450, category: "interior", desc: "Premium leather treatment" },
+                { id: "25L-21", name: "Upolstery cleaner", price: 2200, category: "interior", desc: "Fabric and upholstery cleaner" },
+                { id: "25L-22", name: "Fleet wash", price: 600, category: "cleaner", desc: "Commercial vehicle cleaner" }
+            ]
+        };
+
+        // Shopping Cart
+        let cart = [];
+        let currentSize = "5L";
+        let currentSection = "chemicals";
+
+        // Display products
+        function displayProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const activeFilter = document.querySelector('.filter-btn.active-filter')?.dataset.filter || 'all';
+            
+            const currentProducts = products[currentSize];
+            
+            currentProducts.forEach(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+                                     product.desc.toLowerCase().includes(searchTerm);
+                const matchesFilter = activeFilter === 'all' || product.category === activeFilter;
+                
+                if (matchesSearch && matchesFilter) {
+                    grid.innerHTML += `
+                        <div class="product-card bg-white rounded-lg p-6 shadow-sm" data-id="${product.id}">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg text-gray-800">${product.name}</h3>
+                                <span class="bg-primary/10 text-primary text-sm font-bold px-2 py-1 rounded">${currentSize}</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">${product.desc}</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-secondary text-xl font-bold">R${product.price}</span>
+                                <button class="add-to-cart text-white px-4 py-2 rounded-lg transition" style="background-color: #ea580c;">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            // Add event listeners to all "Add to Cart" buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = this.closest('.product-card').dataset.id;
+                    addToCart(productId);
+                });
+            });
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            let product;
+            
+            // Find product in either 5L or 25L
+            if (productId.startsWith("5L-")) {
+                product = products["5L"].find(p => p.id === productId);
+            } else {
+                product = products["25L"].find(p => p.id === productId);
+            }
+            
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1,
+                    size: productId.startsWith("5L-") ? "5L" : "25L"
+                });
+            }
+
+            updateCart();
+            showCart();
+        }
+
+        // Update cart display
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            const emptyCartMessage = document.getElementById('emptyCartMessage');
+            const totalItems = document.getElementById('totalItems');
+            const totalPrice = document.getElementById('totalPrice');
+            const cartCount = document.getElementById('cartCount');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-blue-200 py-4 text-center">Your cart is empty</p>';
+                emptyCartMessage.style.display = 'block';
+                totalItems.textContent = '0';
+                totalPrice.textContent = 'R0';
+                cartCount.textContent = '0';
+                return;
+            }
+
+            emptyCartMessage.style.display = 'none';
+            cartItems.innerHTML = '';
+            
+            let itemsTotal = 0;
+            let priceTotal = 0;
+
+            cart.forEach(item => {
+                itemsTotal += item.quantity;
+                priceTotal += item.price * item.quantity;
+                
+                cartItems.innerHTML += `
+                    <div class="cart-item py-4 flex justify-between" data-id="${item.id}">
+                        <div>
+                            <h4 class="font-medium">${item.name}</h4>
+                            <div class="flex items-center gap-4 mt-1">
+                                <div class="flex items-center">
+                                    <button class="decrease-qty text-gray-500 hover:text-primary w-6 h-6 flex items-center justify-center border rounded">
+                                        <i class="fas fa-minus text-xs"></i>
+                                    </button>
+                                    <span class="quantity mx-2 w-8 text-center">${item.quantity}</span>
+                                    <button class="increase-qty text-gray-500 hover:text-primary w-6 h-6 flex items-center justify-center border rounded">
+                                        <i class="fas fa-plus text-xs"></i>
+                                    </button>
+                                </div>
+                                <span class="text-xs bg-gray-100 px-2 py-1 rounded">${item.size}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold">R${item.price * item.quantity}</span>
+                            <button class="remove-item text-red-500 hover:text-red-700">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            totalItems.textContent = itemsTotal;
+            totalPrice.textContent = `R${priceTotal}`;
+            cartCount.textContent = itemsTotal;
+
+            // Add event listeners to cart buttons
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemId = this.closest('.cart-item').dataset.id;
+                    removeFromCart(itemId);
+                });
+            });
+
+            document.querySelectorAll('.decrease-qty').forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemId = this.closest('.cart-item').dataset.id;
+                    updateQuantity(itemId, -1);
+                });
+            });
+
+            document.querySelectorAll('.increase-qty').forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemId = this.closest('.cart-item').dataset.id;
+                    updateQuantity(itemId, 1);
+                });
+            });
+        }
+
+        // Remove from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        // Update quantity
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (!item) return;
+            
+            item.quantity += change;
+            
+            if (item.quantity < 1) {
+                removeFromCart(productId);
+            } else {
+                updateCart();
+            }
+        }
+
+        // Show/hide cart
+        function showCart() {
+            document.getElementById('cartSidebar').classList.remove('translate-x-full');
+            document.getElementById('cartOverlay').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideCart() {
+            document.getElementById('cartSidebar').classList.add('translate-x-full');
+            document.getElementById('cartOverlay').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Send order via WhatsApp
+        function sendOrder() {
+            const name = document.getElementById('customerName').value.trim();
+            const phone = document.getElementById('customerPhone').value.trim();
+            const notes = document.getElementById('customerNotes').value.trim();
+
+            if (!name || !phone) {
+                alert('Please enter your name and phone number');
+                return;
+            }
+
+            if (cart.length === 0) {
+                alert('Your cart is empty');
+                return;
+            }
+
+            // Format order message
+            let message = `*NEW ORDER FROM KEOLIN'S WEBSITE*%0A%0A`;
+            message += `*Customer Name:* ${name}%0A`;
+            message += `*Phone:* ${phone}%0A`;
+            if (notes) message += `*Notes:* ${notes}%0A%0A`;
+            
+            message += `*ORDER ITEMS:*%0A`;
+            cart.forEach(item => {
+                message += `- ${item.name} (${item.size}) ${item.quantity} × R${item.price} = R${item.price * item.quantity}%0A`;
+            });
+            
+            message += `%0A*TOTAL: R${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)}*%0A%0A`;
+            message += `_This order was sent from Keolin's website_`;
+
+            // Open WhatsApp
+            window.open(`https://wa.me/27649343376?text=${message}`, '_blank');
+        }
+
+        // Change product size
+        function changeSize(size) {
+            currentSize = size;
+            document.querySelectorAll('.size-tab').forEach(tab => {
+                if (tab.dataset.size === size) {
+                    tab.classList.add('active-tab');
+                    tab.classList.remove('text-gray-600');
+                    tab.classList.add('text-white');
+                } else {
+                    tab.classList.remove('active-tab');
+                    tab.classList.add('text-gray-600');
+                    tab.classList.remove('text-white');
+                }
+            });
+            displayProducts();
+        }
+
+        // Change section
+        function changeSection(section) {
+            currentSection = section;
+            document.querySelectorAll('.product-section').forEach(sec => {
+                sec.classList.add('hidden');
+            });
+            document.getElementById(`${section}Section`).classList.remove('hidden');
+            
+            document.querySelectorAll('.product-tab').forEach(tab => {
+                if (tab.dataset.tab === section) {
+                    tab.classList.add('active-tab');
+                    tab.classList.remove('text-gray-600');
+                } else {
+                    tab.classList.remove('active-tab');
+                    tab.classList.add('text-gray-600');
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Display initial products
+            displayProducts();
+            
+            // Filter functionality
+            document.getElementById('searchInput').addEventListener('input', displayProducts);
+            
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active-filter'));
+                    this.classList.add('active-filter');
+                    displayProducts();
+                });
+            });
+            
+            // Size tabs
+            document.querySelectorAll('.size-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    changeSize(this.dataset.size);
+                });
+            });
+            
+            // Section tabs
+            document.querySelectorAll('.product-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    changeSection(this.dataset.tab);
+                });
+            });
+            
+            // Set first filter as active
+            document.querySelector('.filter-btn[data-filter="all"]').classList.add('active-filter');
+            
+            // Cart toggle
+            document.getElementById('cartToggle').addEventListener('click', showCart);
+            document.getElementById('closeCart').addEventListener('click', hideCart);
+            document.getElementById('cartOverlay').addEventListener('click', hideCart);
+            
+            // Send order
+            document.getElementById('sendOrder').addEventListener('click', sendOrder);
+        });
+    </script>
+</body>
+</html>
